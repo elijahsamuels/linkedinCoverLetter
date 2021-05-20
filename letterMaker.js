@@ -8,6 +8,8 @@ let companyName = document.getElementsByClassName("jobs-details-top-card__compan
 let companyDetails = document.getElementsByClassName("jobs-box__html-content jobs-description-content__text t-14 t-normal")["job-details"].getElementsByTagName("span")[document.getElementsByClassName("jobs-box__html-content jobs-description-content__text t-14 t-normal")["job-details"].getElementsByTagName("span").length - 1 ].innerText;
 let regexEmployees = / employees/gi;
 let regexComma = /,/gi;
+let regexAfterComma = /\W[^,]*$/gi;
+let regexMetroArea = /Metropolitan Area/gi;
 let companyType = document.getElementsByClassName("jobs-details-job-summary__text--ellipsis")[3].innerText.toLowerCase();
 let companyEmployeeCount = document.getElementsByClassName("jobs-details-job-summary__text--ellipsis")[2].innerText;
 let mySkillsCore = ["javascript", "react", "ruby", "redux"];
@@ -29,10 +31,9 @@ companySize = (companyCount) => {
 // console.log(companySize(companyCount))
 companyLocation = () => {
 	if (document.getElementsByClassName("jobs-details-top-card__exact-location t-black--light link-without-visited-state")[0] != undefined) {
-		return document.getElementsByClassName("jobs-details-top-card__exact-location t-black--light link-without-visited-state")[0].innerText.trim().split(" ")[0].replace(regexComma, "")
+		return document.getElementsByClassName("jobs-details-top-card__exact-location t-black--light link-without-visited-state")[0].innerText.trim().replace(regexAfterComma, "").replace(regexMetroArea, "")
 	} else if (document.getElementsByClassName("jobs-details-top-card__bullet")[0] != undefined) {
-		return document.getElementsByClassName("jobs-details-top-card__bullet")[0].innerText.trim().split(" ")[0].replace(regexComma, "")
-
+		return document.getElementsByClassName("jobs-details-top-card__bullet")[0].innerText.trim().replace(regexAfterComma, "").replace(regexMetroArea, "")
 	} 
 }
 // console.log(companyLocation())
